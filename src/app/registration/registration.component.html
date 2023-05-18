@@ -79,7 +79,7 @@
                     [ngClass]="{ 'is-invalid':  submited && f.oemPartNumber.errors }">
                     <div *ngIf=" submited && f.oemPartNumber.errors " class="invalid-feedback">
                       <div *ngIf="submited && f.oemPartNumber.errors.required">OEM Part Number is required</div>
-                      <div *ngIf="submited && f.oemPartNumber.errors.pattern">OEM Part Number must be 8 digit with one uppercase, lowercase, a spacial charactor and a number</div>
+                      <div *ngIf="submited && f.oemPartNumber.errors.pattern">OEM Part Number must be 8 digit number</div>
                   </div>
                  </div>
                 </div>

@@ -20,14 +20,12 @@ export class RegistrationComponent implements OnInit {
     this.registrationForm = this.fb.group({
       brand_name: ["",Validators.required],
       category: ["",[Validators.required, ]],
-      subcategory: ["",[Validators.required,Validators.email]],
-      oemPartNumber:["",[Validators.required,Validators.pattern(
-        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
-      )]],
+      subcategory: ["",[Validators.required]],
+      oemPartNumber:["",[Validators.required,Validators.pattern(/^(?=.*[0-9])(?=.{8,})/)]],
       description:["",[Validators.required]],
       itemRemark: ["",Validators.required],
-      mrpPrice:["",[Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      isGST:["",[Validators.required, Validators.pattern("^[0-9]*$")]],
+      mrpPrice:["",[Validators.required]],
+      isGST:["",[Validators.required,]],
       GSTAmount:["",[Validators.required, Validators.pattern("^[0-9]*$")]],
       landing: ["",Validators.required],
       mark1: ["",Validators.required],
@@ -44,7 +42,6 @@ get f() { return this.registrationForm.controls}
 
  register(){
   this.submited = true;
-  this.submited = true;
   if (this.registrationForm.invalid) {
     //  this.submited = false;
      return;
@@ -52,12 +49,13 @@ get f() { return this.registrationForm.controls}
   this.api.loader('start')
 
   let obj = JSON.parse(JSON.stringify(this.registrationForm.value));
+  console.log(obj);
   delete obj['document_data'];
   delete obj['type'];
-   obj['role'] = 'admin';
-   obj['mobile_number'] = parseInt(obj['mobile_number']);
-   obj['aadhar_number'] = parseInt(obj['aadhar_number']);
-  this.api.postData('admin/register',obj,'post').subscribe(res => {
+  //  obj['role'] = 'admin';
+  //  obj['mobile_number'] = parseInt(obj['mobile_number']);
+  //  obj['aadhar_number'] = parseInt(obj['aadhar_number']);
+  this.api.postData('product/add',obj,'post').subscribe(res => {
     console.log(res);
     if(res['status'] == 1) {
       this.api.loader('stop')
