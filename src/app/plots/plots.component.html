@@ -1,0 +1,246 @@
+<!-- <app-appheader></app-appheader>
+<app-sidebar></app-sidebar> -->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="list_heading">{{ title | titlecase }}</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">{{ title | titlecase }}</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-gray-dark">
+          <div class="card-header">
+            <h3 class="card-title">{{ title | titlecase }} Registration Form</h3>
+          </div>
+          <!-- /.card-header -->
+          <form [formGroup]="registrationForm" (ngSubmit)="register()">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Township Name</label>
+                    <select class="form-control " name="townshipId" style="width: 100%;"
+                    formControlName="townshipId" (change)="onchangeTownship($event)"
+                    [ngClass]="{ 'is-invalid':  submited && f.townshipId.errors }">
+                    <option value="">Choose Township</option>
+                    <option *ngFor="let item of townshiplist" value="{{item.id}}">{{item.township_name}}</option>
+                    <!-- <option>Township 2</option>
+                    <option>Township 3</option> -->
+                  </select>
+                    <div *ngIf=" submited && f.townshipId.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.townshipId.errors.required">Township Name is required</div>
+                  </div>
+                   
+                 </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Block Name</label>
+                  <select class="form-control " name="blockId" style="width: 100%;"
+                  formControlName="blockId"
+                  [ngClass]="{ 'is-invalid':  submited && f.blockId.errors }">
+                  <option value="">Choose Township</option>
+                  <option *ngFor="let item of blocklist" value="{{item.id}}">{{item.name}}</option>
+                  <!-- <option>Township 2</option>
+                  <option>Township 3</option> -->
+                </select>
+                  <div *ngIf=" submited && f.blockId.errors " class="invalid-feedback">
+                    <div *ngIf="submited && f.blockId.errors.required">Block Name is required</div>
+                </div>
+                 
+               </div>
+            </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Plot Number</label>
+                      <input type="text" class="form-control" id="plot_no" placeholder="Enter Plot Number"
+                      formControlName="plot_number"
+                      [ngClass]="{ 'is-invalid':  submited && f.plot_number.errors }">
+                      <div *ngIf=" submited && f.plot_number.errors " class="invalid-feedback">
+                        <div *ngIf="submited && f.plot_number.errors.required">Plot Number is required</div>
+                    </div>
+                   </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Dimesion</label>
+                      <input type="text" class="form-control" id="dimesion" 
+                      placeholder="Enter Dimesion in sq. fit" formControlName="dimesion"
+                      [ngClass]="{ 'is-invalid':  submited && f.dimesion.errors }">
+                      <div *ngIf=" submited && f.dimesion.errors " class="invalid-feedback">
+                        <div *ngIf="submited && f.dimesion.errors.required">dimension is required</div>
+                    </div>
+                   </div>
+                </div>
+                <div class="col-md-3">
+                  <label for="exampleInputEmail1">Plot status</label>
+                  <select class="form-control" name="plot_status" style="width: 100%;" formControlName="plot_status"
+                  [ngClass]="{ 'is-invalid':  submited && f.plot_status.errors }">
+                  <option value="new">New</option>
+                  <option value="booked">Booked</option>
+                  <option value="resale">Resale</option>
+                  <option value="sold">Sold</option>
+                  <option value="registered">Registered</option>
+                  <option value="not registered">Not Registered</option>
+                </select>
+                <div *ngIf=" submited && f.plot_status.errors " class="invalid-feedback">
+                  <div *ngIf="submited && f.plot_status.errors.required">Plot status is required</div>
+              </div>
+                  <!-- <div class="">
+                    <div class="form-check-inline">
+                      <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="customRadio1"
+                        name="plot_status" value="New" formControlName="plot_status"
+                        [ngClass]="{ 'is-invalid':  submited && f.plot_status.errors }">
+                        <label for="customRadio1" class="custom-control-label">New</label>
+                         <div *ngIf=" submited && f.plot_status.errors " class="invalid-feedback">
+                           <div *ngIf="submited && f.plot_status.errors.required">Plot status is required</div>
+                       </div>
+                     </div>
+                    </div>
+                    <div class="form-check-inline">
+                      <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="customRadio2" 
+                        name="plot_status" value="Resell" formControlName="plot_status"
+                        [ngClass]="{ 'is-invalid':  submited && f.plot_status.errors }">
+                        <label for="customRadio2" class="custom-control-label">Resell</label>
+                        <div *ngIf=" submited && f.plot_status.errors " class="invalid-feedback">
+                          <div *ngIf="submited && f.plot_status.errors.required">Plot status is required</div>
+                      </div>
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+
+                <!-- <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Longitute</label>
+                      <input type="text" class="form-control" id="latitude" placeholder="Enter Latitude" 
+                      value="" formControlName="longitude"
+                      [ngClass]="{ 'is-invalid':  submited && f.longitude.errors }">
+                      <div *ngIf=" submited && f.longitude.errors " class="invalid-feedback">
+                        <div *ngIf="submited && f.longitude.errors.required">longitude is required</div>
+                    </div>
+                   </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Latitude</label>
+                      <input type="text" class="form-control" id="latitude" placeholder="Enter Latitude"
+                       value="" formControlName="latitude"
+                       [ngClass]="{ 'is-invalid':  submited && f.latitude.errors }">
+                       <div *ngIf=" submited && f.latitude.errors " class="invalid-feedback">
+                         <div *ngIf="submited && f.latitude.errors.required">latitude is required</div>
+                     </div>
+                   </div>
+                </div>  -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Plot Map Documents</label>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="customFile" formControlName="plot_map_document"
+                      (change)="onfileUpload($event)"
+                      [ngClass]="{ 'is-invalid':  submited && f.plot_map_document.errors }">
+                      <label class="custom-file-label" for="customFile">Choose file</label>
+                      <div *ngIf=" submited && f.plot_map_document.errors " class="invalid-feedback">
+                        <div *ngIf="submited && f.plot_map_document.errors.required">Plot Map Documents is required</div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Selling Amount</label>
+                    <input type="text" class="form-control" id="amount" placeholder="Enter Amount in Rupee"
+                     value="" formControlName="selling_amount"
+                     [ngClass]="{ 'is-invalid':  submited && f.selling_amount.errors }">
+                     <div *ngIf=" submited && f.selling_amount.errors " class="invalid-feedback">
+                       <div *ngIf="submited && f.selling_amount.errors.required">Selling Amount is required</div>
+                   </div>
+                 </div>
+                </div>
+                <!-- <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Commission Type</label>
+                    <select class="form-control" name="commission_type" style="width: 100%;" formControlName="commision_type"
+                    [ngClass]="{ 'is-invalid':  submited && f.commision_type.errors }">
+                    <option value="flat">Flat</option>
+                    <option value="percentage">Percentage</option>
+                  </select>
+                    <div *ngIf=" submited && f.commision_type.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.commision_type.errors.required">Commission Type is required</div>
+                  </div>
+                 </div>
+                </div>
+                <div class="col-md-3">
+                  <label for="exampleInputEmail1">Agent Commission</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="commssion_amount" name="commssion_amount" formControlName="agent_commision"
+                    [ngClass]="{ 'is-invalid':  submited && f.agent_commision.errors }">
+                    <div class="input-group-append">
+                      <span class="input-group-text">.00</span>
+                    </div>
+                    <div *ngIf=" submited && f.agent_commision.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.agent_commision.errors.required">Agent Commission is required</div>
+                  </div>
+                 </div>
+                </div> -->
+              </div>
+              <div class="row">
+
+              <!-- <div class="form-group">
+                  <label>Enter address</label>
+                  <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+                </div> -->
+              
+                <!-- <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                  <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                    (dragEnd)="markerDragEnd($event)"></agm-marker>
+                </agm-map> -->
+
+                <div class="col-md-10">
+                  <div class="form-group">
+                  <label for="">Description</label>
+                  <textarea class="form-control " name="description" id="description" rows="3" 
+                  placeholder="Enter Description here" formControlName="description"
+                  [ngClass]="{ 'is-invalid':  submited && f.description.errors }">
+                  </textarea>
+                  <div *ngIf=" submited && f.description.errors " class="invalid-feedback">
+                    <div *ngIf="submited && f.description.errors.required">Description is required</div>
+                </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+               <button type="submit" class="btn btn-custom">Register</button>
+            </div>
+          </form>
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<!-- <app-footer></app-footer> -->
+

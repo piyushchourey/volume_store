@@ -1,0 +1,166 @@
+<!-- <app-appheader></app-appheader>
+<app-sidebar></app-sidebar> -->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="list_heading">{{ title | titlecase }}</h1>
+          </div>
+          <div class="col-sm-6">
+            <!-- <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">{{ title | titlecase }}</li>
+            </ol> -->
+            
+            <div class="input-group">
+              <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="inputGroupFile04" 
+                   (change)="Onselectfile($event)"  name="file">
+                  <label class="custom-file-label" for="inputGroupFile04">{{ bulkUpload ? bulkUpload.name:'Choose file'}}</label>
+              </div>
+              <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" [disabled]="!bulkUpload" id="inputGroupFileAddon04" (click)="onsubmitBulkUpload()">Upload</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+          <div class="card-body">
+            <table #dtElement datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th >
+                            #
+                        </th>
+                        <th >
+                            Name</th>
+                        <th >
+                            Township
+                        </th>
+                        <th>
+                            Block
+                        </th>
+                        <th>
+                            Plot
+                        </th>
+                        <th>
+                            Broker
+                        </th>
+                      
+                        <th class="text-center"> Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let booking of bookinglist; index as i;">
+                        <td>
+                            {{booking.id}}
+                        </td>
+                        <td>
+                            <a>
+                               {{ booking.client_name }}
+                            </a>
+                            <br/>
+                            <small>
+                                {{booking.createdAt | date}}
+                            </small>
+                        </td>
+                        <td>
+                            <span>{{ booking.township && booking.township.township_name ? booking.township.township_name : '' }}</span>
+                        </td>
+                        <td >
+                            <span>{{ booking.block&&booking.block.name ?booking.block.name:''  }}</span>
+                        </td>
+                     
+                        <td >
+                            <span>{{ booking.plot&&booking.plot.plot_number ?booking.plot.plot_number:''  }}</span>
+                        </td>
+                     
+                        <td >
+                            <span>{{ booking.broker&&booking.broker.first_name ?booking.broker.first_name:''  }}</span>
+                        </td>
+                     
+                         <td class="project-actions text-center">
+                            <!-- <a class="btn btn-primary btn-sm" href="javascript:void(0)"
+                             >
+                                <i class="fas fa-folder">
+                                </i>
+                                View
+                            </a>  -->
+                            <a class="btn btn-info btn-sm mr-2"  href="javascript:void(0)" 
+                            (click)="editbookinglist(booking.id)">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                Edit
+                            </a> 
+                            <a class="btn btn-info btn-sm mr-2"  href="javascript:void(0)" 
+                            (click)="sendmail(booking.id)">
+                                <!-- <i class="fas fa-pencil-alt">
+                                </i> -->
+                                Send Mail
+                            </a> 
+                            <a class="btn btn-danger btn-sm" (click)="selectedbooking = booking;" href="javascript:void(0)"  data-toggle="modal" data-target="#staticBackdrop"
+                           >
+                                <i class="fas fa-trash">
+                                </i>
+                                Delete
+                            </a>
+                            <!--  <a class="btn btn-danger btn-sm d-none"  id="openDeletepop" href="javascript:void(0)" 
+                           >
+                                <i class="fas fa-trash">
+                                </i>
+                                Delete
+                            </a>
+ -->                        </td> 
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+  
+      </section>
+      <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+<!-- <app-footer></app-footer> -->
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" *ngIf="selectedbooking">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Delete booking</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-booking">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure to Delete the booking {{selectedbooking.client_name}} ? This action can not be reverted.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-custom"
+         (click)="deletebookinglist(selectedbooking.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

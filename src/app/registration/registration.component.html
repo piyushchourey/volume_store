@@ -1,0 +1,269 @@
+<!-- <app-appheader></app-appheader>
+<app-sidebar></app-sidebar> -->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="list_heading">{{ title | titlecase }}</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">{{ title | titlecase }}</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-gray-dark">
+          <div class="card-header">
+            <h3 class="card-title">{{ title | titlecase }} Form</h3>
+          </div>
+          <!-- /.card-header -->
+          <form [formGroup]="registrationForm" (ngSubmit)="register()">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Brand Name</label>
+                    <select formControlName="brand_name" class="form-control select2" style="width: 100%;" [ngClass]="{ 'is-invalid':  submited && f.brand_name.errors }">
+                      <option value="">Select Brand Name</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
+                    <div *ngIf=" submited && f.brand_name.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.brand_name.errors.required">Brand name is required</div>
+                  </div>
+                 </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Category</label>
+                    <input type="text" class="form-control" id="category" 
+                    placeholder="Enter Category" formControlName="category"
+                    [ngClass]="{ 'is-invalid':  submited && f.category.errors }">
+                    <div *ngIf=" submited && f.category.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.category.errors.required">Category is required</div>
+                  </div>
+                
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Sub category</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1"
+                    placeholder="Enter subcategory"formControlName="subcategory"
+                    [ngClass]="{ 'is-invalid':  submited && f.subcategory.errors }">
+                    <div *ngIf=" submited && f.subcategory.errors " class="invalid-feedback">
+                      <div *ngIf="submited && (f.subcategory.errors.required ||  f.subcategory.errors.subcategory)">Subcategory is required</div>
+                  </div>
+                 </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">OEM PartNumber</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" 
+                    placeholder="Enter OEM Part Number" formControlName="oemPartNumber"
+                    [ngClass]="{ 'is-invalid':  submited && f.oemPartNumber.errors }">
+                    <div *ngIf=" submited && f.oemPartNumber.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.oemPartNumber.errors.required">OEM Part Number is required</div>
+                      <div *ngIf="submited && f.oemPartNumber.errors.pattern">OEM Part Number must be 8 digit with one uppercase, lowercase, a spacial charactor and a number</div>
+                  </div>
+                 </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">MRP Price</label>
+                    <input type="text" class="form-control" id="mrpPrice"
+                     placeholder="Enter MRP Price"formControlName="mrpPrice"
+                     [ngClass]="{ 'is-invalid':  submited && f.mrpPrice.errors }">
+                     <div *ngIf=" submited && f.mrpPrice.errors " class="invalid-feedback">
+                       <div *ngIf="submited && (f.mrpPrice.errors.required
+                       || f.mrpPrice.errors.pattern)">MRP Price is required</div>
+                       <!-- <div *ngIf="submited && f.mrpPrice.errors.pattern">Mobile Number is required</div> -->
+                   </div>
+                 </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">GST</label>
+                    <select formControlName="isGST" class="form-control select2" style="width: 100%;" [ngClass]="{ 'is-invalid':  submited && f.isGST.errors }">
+                      <option value="">Select GST</option>
+                      <option selected="selected">Yes</option>
+                      <option>No</option>
+                    </select>
+                     <div *ngIf=" submited && f.isGST.errors " class="invalid-feedback">
+                       <div *ngIf="submited && (f.isGST.errors.required || 
+                       f.isGST.errors.pattern || f.isGST.errors.minlength
+                       ||f.isGST.errors.maxlength)">GST is required</div>
+                       <!-- <div *ngIf="submited && f.aadhar_card_number.errors.pattern">Aadhar card Number  is required</div> -->
+                   </div>
+                 </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">GST (in %)</label>
+                    <input type="text" class="form-control" id="uidai"
+                     placeholder="Please Enter GST %" formControlName="GSTAmount"
+                     [ngClass]="{ 'is-invalid':  submited && f.GSTAmount.errors }">
+                     <div *ngIf=" submited && f.GSTAmount.errors " class="invalid-feedback">
+                       <div *ngIf="submited && (f.GSTAmount.errors.required || 
+                       f.GSTAmount.errors.pattern || f.GSTAmount.errors.minlength
+                       ||f.GSTAmount.errors.maxlength)">GST is required</div>
+                       <!-- <div *ngIf="submited && f.aadhar_card_number.errors.pattern">Aadhar card Number  is required</div> -->
+                   </div>
+                 </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Landing</label>
+                    <input type="text" class="form-control" id="uidai"
+                     placeholder="Please Enter GST %" formControlName="landing"
+                     [ngClass]="{ 'is-invalid':  submited && f.landing.errors }">
+                     <div *ngIf=" submited && f.landing.errors " class="invalid-feedback">
+                       <div *ngIf="submited && (f.landing.errors.required || 
+                       f.landing.errors.pattern || f.landing.errors.minlength
+                       ||f.landing.errors.maxlength)">Landing is required</div>
+                       <!-- <div *ngIf="submited && f.aadhar_card_number.errors.pattern">Aadhar card Number  is required</div> -->
+                   </div>
+                 </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Mark 1</label>
+                    <select formControlName="mark1" class="form-control select2" style="width: 100%;" [ngClass]="{ 'is-invalid':  submited && f.mark1.errors }">
+                      <option value="">Select Mark 1</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
+                    <div *ngIf=" submited && f.mark1.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.mark1.errors.required">Mark 1 is required</div>
+                  </div>
+                 </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Mark 2</label>
+                    <select formControlName="mark2" class="form-control select2" style="width: 100%;" [ngClass]="{ 'is-invalid':  submited && f.mark2.errors }">
+                      <option value="">Select Mark 2</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
+                    <div *ngIf=" submited && f.mark2.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.mark2.errors.required">Mark 2 is required</div>
+                  </div>
+                 </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Mark 3</label>
+                    <select formControlName="mark3" class="form-control select2" style="width: 100%;" [ngClass]="{ 'is-invalid':  submited && f.mark3.errors }">
+                      <option value="">Select Mark 3</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
+                    <div *ngIf=" submited && f.mark3.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.mark3.errors.required">Mark 3 is required</div>
+                  </div>
+                 </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Mark 4</label>
+                    <select formControlName="mark4" class="form-control select2" style="width: 100%;" [ngClass]="{ 'is-invalid':  submited && f.mark4.errors }">
+                      <option value="">Select Mark 4</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
+                    <div *ngIf=" submited && f.mark4.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.mark4.errors.required">Mark 4 is required</div>
+                  </div>
+                 </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label>Description</label>
+                      <textarea class="form-control" rows="3" placeholder="Enter Description here
+                      "formControlName="description"
+                      [ngClass]="{ 'is-invalid':  submited && f.description.errors }" rows="5" cols="10"></textarea>
+                      <div *ngIf=" submited && f.description.errors " class="invalid-feedback">
+                        <div *ngIf="submited && f.description.errors.required">Description is required</div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Item Remark</label>
+                    <textarea class="form-control" rows="3" placeholder="Enter Item Remark here
+                    "formControlName="itemRemark"
+                    [ngClass]="{ 'is-invalid':  submited && f.itemRemark.errors }" rows="5" cols="10"></textarea>
+                    <div *ngIf=" submited && f.itemRemark.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.itemRemark.errors.required">Item Remark is required</div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Upload Photos</label>
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" 
+                        id="customFile"formControlName="document_data" (change)="onfileUpload($event)"
+                        [ngClass]="{ 'is-invalid':  submited && f.document_data.errors }">
+                        <div *ngIf=" submited && f.document_data.errors " class="invalid-feedback">
+                          <div *ngIf="submited && f.document_data.errors.required">Photo is required</div>
+                      </div>
+                        <label class="custom-file-label" for="customFile">Select Photo</label>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+               <button type="submit" class="btn btn-custom">Save Product</button>
+            </div>
+          </form>
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<!-- 
+<app-footer></app-footer> -->

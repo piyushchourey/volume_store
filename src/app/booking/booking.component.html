@@ -1,0 +1,323 @@
+<!-- <app-appheader></app-appheader>
+<app-sidebar></app-sidebar> -->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="list_heading">{{ title | titlecase }}</h1>
+          </div>
+          <div class="col-sm-6">
+            <!-- <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">{{ title | titlecase }}</li>
+            </ol> -->
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-gray-dark">
+          <div class="card-header">
+            <h3 class="card-title">{{ title | titlecase }} Registration Form</h3>
+          </div>
+          <!-- /.card-header -->
+          <form *ngIf="registrationForm" [formGroup]="registrationForm" (ngSubmit)="register()">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Township Name</label>
+                      <select class="form-control " name="townshipId" style="width: 100%;"
+                      formControlName="townshipId" (change)="onchangeTownship($event)"
+                      [ngClass]="{ 'is-invalid': submited && f.townshipId.errors }">
+                      <!-- <option value="">Choose Township</option> -->
+                      <option *ngFor="let item of townshiplist" [value]="item.id">{{item.township_name}}</option>
+                      <!-- <option>Township 2</option>
+                      <option>Township 3</option> -->
+                    </select>
+                      <div *ngIf="submited && f.townshipId.errors " class="invalid-feedback">
+                        <div *ngIf="submited && f.townshipId.errors.required">Township Name is required</div>
+                    </div>
+                     
+                   </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Block Name</label>
+                    <select class="form-control " name="blockId" style="width: 100%;"
+                    formControlName="blockId" (change)="onchangeBlock($event)"
+                    [ngClass]="{ 'is-invalid': submited && f.blockId.errors }">
+                    <!-- <option value="">Choose Block</option> -->
+                    <option *ngFor="let item of blocklist" [value]="item.id">{{item.name}}</option>
+                    <!-- <option>Township 2</option>
+                    <option>Township 3</option> -->
+                  </select>
+                    <div *ngIf="submited && f.blockId.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.blockId.errors.required">Block Name is required</div>
+                  </div>
+                   
+                 </div>
+              </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Plot </label>
+                    <select class="form-control " name="plotId" style="width: 100%;"
+                    formControlName="plotId"  (change)="onselectPlot($event)"
+                    [ngClass]="{ 'is-invalid': submited && f.plotId.errors }">
+                    <!-- <option value="">Choose Plot</option> -->
+                    <option *ngFor="let item of plotslist" [value]="item.id">{{item.plot_number}}</option>
+                    <!-- <option>Township 2</option>
+                    <option>Township 3</option> -->
+                  </select>
+                    <div *ngIf="submited && f.plotId.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.plotId.errors.required">Plot is required</div>
+                  </div>
+                   
+                 </div>
+              </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Broker </label>
+                    <select class="form-control " name="brokerId" style="width: 100%;"
+                    formControlName="brokerId"
+                    [ngClass]="{ 'is-invalid': submited && f.brokerId.errors }">
+                    <!-- <option value="">Choose Broker</option> -->
+                    <option *ngFor="let item of brokerList" [value]="item.id">{{item.first_name}}</option>
+                    <!-- <option>Township 2</option>
+                    <option>Township 3</option> -->
+                  </select>
+                    <div *ngIf="submited && f.brokerId.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.brokerId.errors.required">Broker Name is required</div>
+                  </div>
+                   
+                 </div>
+              </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Client Name</label>
+                    <input type="text" class="form-control" id="fname" 
+                    placeholder="Enter First Name"
+                    formControlName="client_name"
+                    [ngClass]="{ 'is-invalid': submited && f.client_name.errors }">
+                    <div *ngIf="submited && f.client_name.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.client_name.errors.required">Client Name is required</div>
+                  </div>
+                 </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1"
+                      placeholder="Enter Email"formControlName="email"
+                      [ngClass]="{ 'is-invalid': submited && f.email.errors }">
+                      <div *ngIf="submited && f.email.errors " class="invalid-feedback">
+                        <div *ngIf="submited && (f.email.errors.required ||  f.email.errors.email)">email is required</div>
+                    </div>
+                   </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Mobile Number</label>
+                      <input type="text" class="form-control" id="mobile"
+                       placeholder="Enter Mobile Number"formControlName="mobile"
+                       [ngClass]="{ 'is-invalid': submited && f.mobile.errors }">
+                       <div *ngIf="submited && f.mobile.errors " class="invalid-feedback">
+                         <div *ngIf="submited && (f.mobile.errors.required
+                         || f.mobile.errors.pattern)">Mobile Number is required</div>
+                         <!-- <div *ngIf="submited && f.mobile.errors.pattern">Mobile Number is required</div> -->
+                     </div>
+                   </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Aadhar card Number</label>
+                      <input type="text" class="form-control" id="uidai"
+                       placeholder="Enter 12 Digit Number"formControlName="aadharcardNumber"
+                       [ngClass]="{ 'is-invalid': submited && f.aadharcardNumber.errors }">
+                       <div *ngIf="submited && f.aadharcardNumber.errors " class="invalid-feedback">
+                         <div *ngIf="submited && (f.aadharcardNumber.errors.required || 
+                         f.aadharcardNumber.errors.pattern || f.aadharcardNumber.errors.minlength
+                         ||f.aadharcardNumber.errors.maxlength)">Aadhar card Number  is required</div>
+                         <!-- <div *ngIf="submited && f.aadhar_card_number.errors.pattern">Aadhar card Number  is required</div> -->
+                     </div>
+                   </div>
+                  </div>
+                  <div class="col-md-3">
+                      <label for="exampleInputEmail1">Plot Amount</label>
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="plotAmount" name="plotAmount"
+                        formControlName="plotAmount"
+                        [ngClass]="{ 'is-invalid': submited && f.plotAmount.errors }">
+                        
+                        <div *ngIf="submited && f.plotAmount.errors" class="invalid-feedback">
+                          <div *ngIf="submited && f.plotAmount.errors.required">Plot Amount is required</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="exampleInputEmail1"> Amount Received</label>
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="bookingAmount" name="bookingAmount"
+                         formControlName="bookingAmount"
+                        [ngClass]="{ 'is-invalid': submited && f.bookingAmount.errors }">
+                        
+                        <div *ngIf="submited && f.bookingAmount.errors " class="invalid-feedback">
+                          <div *ngIf="submited && f.bookingAmount.errors.required">Booking  Amount is required</div>
+                      </div>
+                     </div>
+                    </div>
+                    <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Commission Type</label>
+                    <select class="form-control" name="commission_type" style="width: 100%;"
+                     formControlName="commission_type" (change)="changeCommisiontype($event)"
+                    [ngClass]="{ 'is-invalid': submited && f.commission_type.errors }">
+                    <option value="flat">Flat</option>
+                    <option value="percentage">Percentage</option>
+                  </select>
+                    <div *ngIf="submited && f.commission_type.errors" class="invalid-feedback">
+                      <div *ngIf="submited && f.commission_type.errors.required">Commission Type is required</div>
+                  </div>
+                 </div>
+                </div>
+                <div class="col-md-3" *ngIf="registrationForm.value.commission_type == 'percentage'">
+                  <label for="exampleInputEmail1">Agent Commission</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="commission_type_amount" name="commission_type_amount"
+                     formControlName="commission_type_amount" (keyup)="onchangeper($event)"
+                    [ngClass]="{ 'is-invalid': submited && f.commission_type_amount.errors }">
+                    <div class="input-group-append">
+                      <span class="input-group-text">%</span>
+                    </div>
+                    <div *ngIf="submited && f.commission_type_amount.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.commission_type_amount.errors.required"> Commission type amount is required</div>
+                  </div>
+                 </div>
+                </div>
+                <div class="col-md-3">
+                  <label for="exampleInputEmail1"> Commission Amount</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="commission_amount" name="commission_amount"
+                     formControlName="commission_amount"
+                    [ngClass]="{ 'is-invalid': submited && f.commission_amount.errors }">
+                    <!-- <div class="input-group-append">
+                      <span class="input-group-text">.00</span>
+                    </div> -->
+                    <div *ngIf="submited && f.commission_amount.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.commission_amount.errors.required"> Commission Amount is required</div>
+                  </div>
+                 </div>
+                </div>
+           
+                 
+
+                  <div class="col-md-3">
+                    <label for="exampleInputEmail1">Payment Mode</label>
+                    <div class="">
+                      <div class="form-check-inline">
+                        <div class="custom-control custom-radio">
+                          <input class="custom-control-input" type="radio" id="customRadio1"
+                          name="paymentMode" value="cash" formControlName="paymentMode"
+                          [ngClass]="{ 'is-invalid': submited && f.paymentMode.errors }">
+                          <label for="customRadio1" class="custom-control-label">Cash</label>
+                           <div *ngIf="submited && f.paymentMode.errors " class="invalid-feedback">
+                             <div *ngIf="submited && f.paymentMode.errors.required">Payment mode is required</div>
+                         </div>
+                       </div>
+                      </div>
+                      <div class="form-check-inline">
+                        <div class="custom-control custom-radio">
+                          <input class="custom-control-input" type="radio" id="customRadio2" 
+                          name="paymentMode" value="check" formControlName="paymentMode"
+                          [ngClass]="{ 'is-invalid': submited && f.paymentMode.errors }">
+                          <label for="customRadio2" class="custom-control-label">Cheque</label>
+                          <div *ngIf="submited && f.paymentMode.errors " class="invalid-feedback">
+                            <div *ngIf="submited && f.paymentMode.errors.required">Payment mode is required</div>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Aadhar card</label>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" 
+                      id="customFile"formControlName="aadharcardDocData" (change)="onfileUpload($event, 'aadharcard')"
+                      [ngClass]="{ 'is-invalid': submited && f.aadharcardDocData.errors }">
+                      <div *ngIf="submited && f.aadharcardDocData.errors " class="invalid-feedback">
+                        <div *ngIf="submited && f.aadharcardDocData.errors.required">Aadhar card  is required</div>
+                    </div>
+                      <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Salary Slip</label>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" 
+                      id="customFile"formControlName="salarySlipDocData"
+                       (change)="onfileUpload($event, 'salaryslip')"
+                      [ngClass]="{ 'is-invalid': submited && f.salarySlipDocData.errors }">
+                      <div *ngIf="submited && f.salarySlipDocData.errors " class="invalid-feedback">
+                        <div *ngIf="submited && f.salarySlipDocData.errors.required">documents is required</div>
+                    </div>
+                      <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Agreement</label>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" 
+                      id="customFile"formControlName="agreementDocData" 
+                      (change)="onfileUpload($event, 'aggrement')"
+                      [ngClass]="{ 'is-invalid': submited && f.agreementDocData.errors }">
+                      <div *ngIf="submited && f.agreementDocData.errors " class="invalid-feedback">
+                        <div *ngIf="submited && f.agreementDocData.errors.required"> Agreement documents is required</div>
+                    </div>
+                      <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="form-group">
+                    <label for="">Description</label>
+                    <textarea class="form-control " name="description" id="description" rows="3" 
+                    placeholder="Enter Description here" formControlName="description"
+                    [ngClass]="{ 'is-invalid': submited && f.description.errors }">
+                    </textarea>
+                    <div *ngIf="submited && f.description.errors " class="invalid-feedback">
+                      <div *ngIf="submited && f.description.errors.required">Description is required</div>
+                  </div>
+                    </div>
+                  </div>
+              </div>
+              
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+               <button type="submit" *ngIf="id" class="btn btn-custom">Update</button>
+               <button type="submit" *ngIf="!id" class="btn btn-custom">Register</button>
+            </div>
+          </form>
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<!-- 
+<app-footer></app-footer> -->

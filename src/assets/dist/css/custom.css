@@ -1,0 +1,38 @@
+body:not(.layout-fixed) .main-sidebar{
+	background: #000 !important;
+}
+.btn-custom{
+	background-color: #343a40;
+	color: #fff;
+}
+h1.list_heading{
+	font-weight: bold;
+}
+.login-page{
+	background: #fff;
+}
+.login-box .input-group-text{
+	background-color: #fff;
+}
+.login-box .login-logo-1{
+	width: 50%;
+}
+.login-box .card-header{
+	padding: 8px;
+}
+.login-box .card-body{
+	padding-bottom: 0px; 
+}
+.breadcrumb-item a{
+	color: #000;
+}
+.main .content-wrapper{
+	background: #fff;
+}
+.btn-custom:hover{
+	color: #fff;
+}
+.logout-btn{
+	color: rgb(32 36 40);
+    font-weight: bold;
+}
